@@ -21,8 +21,10 @@ import com.getstream.sdk.chat.StreamChat;
 import com.getstream.sdk.chat.adapter.ReactionDialogAdapter;
 import com.getstream.sdk.chat.model.ModelType;
 import com.getstream.sdk.chat.rest.Message;
+import com.getstream.sdk.chat.rest.interfaces.CompletableCallback;
 import com.getstream.sdk.chat.rest.interfaces.FlagCallback;
 import com.getstream.sdk.chat.rest.interfaces.MessageCallback;
+import com.getstream.sdk.chat.rest.response.CompletableResponse;
 import com.getstream.sdk.chat.rest.response.FlagResponse;
 import com.getstream.sdk.chat.rest.response.MessageResponse;
 import com.getstream.sdk.chat.storage.Sync;
@@ -82,18 +84,24 @@ public class MessageMoreActionDialog extends Dialog {
         LinearLayout ll_flag = findViewById(R.id.ll_flag);
         LinearLayout ll_edit = findViewById(R.id.ll_edit);
         LinearLayout ll_delete = findViewById(R.id.ll_delete);
+        LinearLayout ll_ban = findViewById(R.id.ll_ban);
+        LinearLayout ll_unban = findViewById(R.id.ll_unban);
 
 
         ll_thread.setVisibility(canThreadOnMessage() ? View.VISIBLE : View.GONE);
         ll_copy.setVisibility(canCopyonMessage() ? View.VISIBLE : View.GONE);
         if (!message.getUserId().equals(StreamChat.getInstance(context).getUserId())) {
+            ll_ban.setVisibility(message.getUser().getBanned() ? View.GONE : View.VISIBLE);
+            ll_unban.setVisibility(message.getUser().getBanned() ? View.VISIBLE : View.GONE);
+
+
             ll_edit.setVisibility(View.GONE);
             ll_delete.setVisibility(View.GONE);
             ll_flag.setOnClickListener(view -> {
                 viewModel.getChannel().flagMessage(message.getId(), new FlagCallback() {
                     @Override
                     public void onSuccess(FlagResponse response) {
-                        Utils.showMessage(context, "Message has been succesfully flagged");
+                        Utils.showMessage(context, "Le message a été signalé");
                         dismiss();
                     }
 
@@ -105,7 +113,45 @@ public class MessageMoreActionDialog extends Dialog {
                 });
 
             });
+
+            ll_ban.setOnClickListener(view -> {
+                viewModel.getChannel().banUser(message.getUserID(), null, null, new CompletableCallback() {
+                    @Override
+                    public void onSuccess(CompletableResponse response) {
+                        Utils.showMessage(context, "L'utilisateur a été bloqué");
+                        dismiss();
+                    }
+
+                    @Override
+                    public void onError(String errMsg, int errCode) {
+                        Utils.showMessage(context, errMsg);
+                        dismiss();
+                    }
+                });
+
+            });
+
+            ll_unban.setOnClickListener(view -> {
+                viewModel.getChannel().unBanUser(message.getUserID(), new CompletableCallback() {
+                    @Override
+                    public void onSuccess(CompletableResponse response) {
+                        Utils.showMessage(context, "L'utilisateur a été débloqué");
+                        dismiss();
+                    }
+
+                    @Override
+                    public void onError(String errMsg, int errCode) {
+                        Utils.showMessage(context, errMsg);
+                        dismiss();
+                    }
+                });
+
+            });
+
+
         } else {
+            ll_ban.setVisibility(View.GONE);
+            ll_unban.setVisibility(View.GONE);
             ll_flag.setVisibility(View.GONE);
 
             ll_edit.setOnClickListener(view -> {
@@ -118,7 +164,7 @@ public class MessageMoreActionDialog extends Dialog {
                         new MessageCallback() {
                             @Override
                             public void onSuccess(MessageResponse response) {
-                                Utils.showMessage(context, "Deleted Successfully");
+                                Utils.showMessage(context, "Message supprimé");
                                 dismiss();
                                 if (TextUtils.isEmpty(message.getParentId()))
                                     viewModel.initThread();

@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Copy"
+                android:text="Copier"
                 android:textColor="#8A000000" />
         </LinearLayout>
 
@@ -117,8 +117,60 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Flag"
+                android:text="Signaler"
                 android:textColor="#8A000000" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/ll_ban"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:padding="16dp">
+
+            <ImageView
+              android:layout_width="22dp"
+              android:layout_height="22dp"
+              android:src="@drawable/ic_baseline_stop_screen_share_24" />
+
+            <TextView
+              android:layout_width="34dp"
+              android:layout_height="match_parent" />
+
+            <TextView
+              style="@style/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:text="Bloquer"
+              android:textColor="#8A000000" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/ll_unban"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:padding="16dp">
+
+            <ImageView
+              android:layout_width="22dp"
+              android:layout_height="22dp"
+              android:src="@drawable/ic_baseline_stop_screen_share_24" />
+
+            <TextView
+              android:layout_width="34dp"
+              android:layout_height="match_parent" />
+
+            <TextView
+              style="@style/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:text="Mode silencieux"
+              android:textColor="#8A000000" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Edit"
+                android:text="Modifier"
                 android:textColor="#8A000000" />
         </LinearLayout>
 
@@ -169,7 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Delete"
+                android:text="Supprimer"
                 android:textColor="#8A000000" />
         </LinearLayout>
 
