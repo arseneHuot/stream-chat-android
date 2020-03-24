@@ -115,9 +115,11 @@ public class MessageMoreActionDialog extends Dialog {
             });
 
             ll_ban.setOnClickListener(view -> {
-                viewModel.getChannel().banUser(message.getUserID(), null, null, new CompletableCallback() {
+                viewModel.getChannel().banUser(message.getUserId(), null, null, new CompletableCallback() {
                     @Override
                     public void onSuccess(CompletableResponse response) {
+                        ll_unban.setVisibility(View.VISIBLE);
+                        ll_ban.setVisibility(View.GONE);
                         Utils.showMessage(context, "L'utilisateur a été bloqué");
                         dismiss();
                     }
@@ -132,9 +134,11 @@ public class MessageMoreActionDialog extends Dialog {
             });
 
             ll_unban.setOnClickListener(view -> {
-                viewModel.getChannel().unBanUser(message.getUserID(), new CompletableCallback() {
+                viewModel.getChannel().unBanUser(message.getUserId(), new CompletableCallback() {
                     @Override
                     public void onSuccess(CompletableResponse response) {
+                        ll_unban.setVisibility(View.GONE);
+                        ll_ban.setVisibility(View.VISIBLE);
                         Utils.showMessage(context, "L'utilisateur a été débloqué");
                         dismiss();
                     }
