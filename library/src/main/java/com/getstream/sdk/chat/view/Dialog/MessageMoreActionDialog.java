@@ -91,8 +91,8 @@ public class MessageMoreActionDialog extends Dialog {
         ll_thread.setVisibility(canThreadOnMessage() ? View.VISIBLE : View.GONE);
         ll_copy.setVisibility(canCopyonMessage() ? View.VISIBLE : View.GONE);
         if (!message.getUserId().equals(StreamChat.getInstance(context).getUserId())) {
-            ll_ban.setVisibility(message.getUser().getBanned() ? View.GONE : View.VISIBLE);
-            ll_unban.setVisibility(message.getUser().getBanned() ? View.VISIBLE : View.GONE);
+            ll_ban.setVisibility(View.VISIBLE);
+            ll_unban.setVisibility(View.VISIBLE);
 
 
             ll_edit.setVisibility(View.GONE);
