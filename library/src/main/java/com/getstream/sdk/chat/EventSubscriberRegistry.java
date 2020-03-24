@@ -33,7 +33,6 @@ public class EventSubscriberRegistry<T> {
      * @return
      */
     public List<T> getSubscribers() {
-        lock.lock();
         List<T> subs = new ArrayList<>();
         for (int i = subscriberSequence; i >= 1; i--) {
             T sub = subscribers.get(i);
@@ -42,7 +41,6 @@ public class EventSubscriberRegistry<T> {
                 subs.add(sub);
             }
         }
-        lock.unlock();
         return subs;
     }
 
@@ -52,10 +50,8 @@ public class EventSubscriberRegistry<T> {
      * @return
      */
     public int addSubscription(T handler) {
-        lock.lock();
         int id = ++subscriberSequence;
         subscribers.put(id, handler);
-        lock.unlock();
         return id;
     }
 
@@ -64,9 +60,7 @@ public class EventSubscriberRegistry<T> {
      * @param subId
      */
     public void removeSubscription(int subId) {
-        lock.lock();
         subscribers.remove(subId);
-        lock.unlock();
     }
 
     /**
