@@ -6,7 +6,7 @@ apply plugin: "de.mannodermaus.android-junit5"
 
 apply plugin: 'jacoco-android'
 
-group = 'com.github.GetStream'
+group = 'com.github.arseneHuot'
 
 def DEFAULT_COMPILE_SDK_VERSION = 29
 def DEFAULT_TARGET_SDK_VERSION = 29
