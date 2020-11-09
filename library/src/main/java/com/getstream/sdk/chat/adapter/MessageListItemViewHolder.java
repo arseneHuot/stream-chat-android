@@ -493,12 +493,6 @@ public class MessageListItemViewHolder extends BaseMessageListItemViewHolder {
 
     protected void configReplyView() {
         int replyCount = message.getReplyCount();
-        if (channelState == null || channelState.getChannel() == null || channelState.getChannel().getConfig() == null) {
-            iv_reply.setVisibility(View.GONE);
-            tv_reply.setVisibility(View.GONE);
-            return;
-        }
-
         if (!style.isThreadEnabled()
                 || !channelState.getChannel().getConfig().isRepliesEnabled()
                 || (position == 0 && TextUtils.isEmpty(message.getId()))
